@@ -1,0 +1,15 @@
+
+
+{% extends 'base.html'%}  {% load static %} {%block title%} Page not found {%endblock title%} 
+{% block content %}
+{% include 'nav.html' %}
+ <!-- end of nav -->
+ <main class="page error-page">
+    <section>
+      <h1>404</h1>
+      <h3>page not found</h3>
+    </section>
+</main>
+<!-- footer -->
+{% include 'fotter.html' %}
+{%endblock content%}

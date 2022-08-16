@@ -1,0 +1,65 @@
+{% extends 'base.html'%} {% load static %} {%block title%} Reciepes {%endblock title%} 
+
+{% block content %}
+<section class="recipes-container">
+    <!-- tag container -->
+    <div class="tags-container">
+      <h4>recipes</h4>
+      <div class="tags-list">
+        <a href="tag-template.html">Beef (1)</a>
+        <a href="tag-template.html">Breakfast (2)</a>
+        <a href="tag-template.html">Carrots (3)</a>
+        <a href="tag-template.html">Food (4)</a>
+      </div>
+    </div>
+    <!-- end of tag container -->
+    <!-- recipes list -->
+    <div class="recipes-list">
+      <!-- single recipe -->
+      <a href="{%url "recipe_detail"%}" class="recipe">
+        <img
+          src="{% static "/images/recipes/recipe-1.jpeg" %}"
+          class="img recipe-img"
+          alt=""
+        />
+        <h5>Carne Asada</h5>
+        <p>Prep : 15min | Cook : 5min</p>
+      </a>
+      <!-- end of single recipe -->
+      <!-- single recipe -->
+      <a href="{%url "recipe_detail"%}" class="recipe">
+        <img
+          src="{% static "/images/recipes/recipe-2.jpeg" %}"
+          class="img recipe-img"
+          alt=""
+        />
+        <h5>Greek Ribs</h5>
+        <p>Prep : 15min | Cook : 5min</p>
+      </a>
+      <!-- end of single recipe -->
+      <!-- single recipe -->
+      <a href="{%url "recipe_detail"%}" class="recipe">
+        <img
+          src="{% static "/images/recipes/recipe-3.jpeg" %}"
+          class="img recipe-img"
+          alt=""
+        />
+        <h5>Vegetable Soup</h5>
+        <p>Prep : 15min | Cook : 5min</p>
+      </a>
+      <!-- end of single recipe -->
+      <!-- single recipe -->
+      <a href="{%url "recipe_detail"%}" class="recipe">
+        <img
+          src="{% static "/images/recipes/recipe-4.jpeg" %}"
+          class="img recipe-img"
+          alt=""
+        />
+        <h5>Banana Pancakes</h5>
+        <p>Prep : 15min | Cook : 5min</p>
+      </a>
+      <!-- end of single recipe -->
+    </div>
+    <!-- end of recipes list -->
+  </section>
+{%endblock content%}

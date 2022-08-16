@@ -1,0 +1,14 @@
+{% extends 'base.html' %}{% load crispy_forms_tags %} {% block title %}
+Login{% endblock title %} {%load static %} {%block content %}
+{% include 'nav.html' %}
+
+<div style="width: 500px; height:85vh" class="p-5">
+  <form action="{% url 'login' %}" method="POST">
+    {% csrf_token %} {{ form|crispy }}
+    <button type="submit" class="btn btn-primary mt-2">Login</button>
+</form>
+<a href='/registration'>You Don't have an account? Register now!</a>
+</div>
+{% include 'fotter.html' %}
+
+{% endblock content %}

@@ -1,0 +1,19 @@
+{% extends 'base.html'%}  {% load static %} {%block title%} welcome {%endblock title%} 
+{% block content %}
+{% include 'nav.html' %}
+<main class="page">
+  <!-- header -->
+  <header class="hero" style='background: url("{% static "images/main.jpeg" %}") center/cover no-repeat;'>
+    <div class="hero-container">
+      <div class="hero-text">
+        <h1>simply recipes</h1>
+        <h4>no fluff, just recipes</h4>
+      </div>
+    </div>
+  </header>
+  <!-- end of header -->
+  {% include 'recipes.html' %}
+</main>
+{% include 'fotter.html' %}
+{%endblock content%}
+

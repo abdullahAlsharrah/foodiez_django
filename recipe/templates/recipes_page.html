@@ -1,0 +1,12 @@
+{% extends 'base.html'%} {% load static %} {%block title%} Reciepes {%endblock title%} 
+
+{% block content %}
+{% include 'nav.html' %}
+<main class="page">
+
+  {% include 'recipes.html' %}
+</main>
+
+{% include 'fotter.html' %}
+
+{%endblock content%}
