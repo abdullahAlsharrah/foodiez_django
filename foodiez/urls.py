@@ -16,7 +16,7 @@ urlpatterns = [
     #Home
     path('', recipe_views.home, name="home"),
     path('recipes/', recipe_views.recipes_view, name="recipes"),
-    path('recipe/detail', recipe_views.recipe_detail_view, name="recipe_detail"),
+    path('recipe/detail/<int:recipe_id>/', recipe_views.recipe_detail_view, name="recipe_detail"),
     path('categories', recipe_views.categories_view, name="catgeories"),
 ]
 handler404 = 'recipe.views.handler404'

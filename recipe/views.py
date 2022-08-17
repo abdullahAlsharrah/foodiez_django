@@ -1,14 +1,19 @@
-import re
 from django.shortcuts import redirect, render
 from django.contrib.auth import login, authenticate,logout
+from django.template import context
 from recipe.forms import UserLogin, UserRegister
+from recipe.models import IngredientItem, Recipe, Step
 
 # Create your views here.
 def handler404(request,exception):
     return render(request,"404.html")
     
 def home(request):
-    return render(request,'home.html')
+    recipes: list[Recipe] = list(Recipe.objects.all())
+    context = {
+        "recipes": recipes,
+    }
+    return render(request,'home.html',context)
 
 def registration_view(request):
     if request.user.is_authenticated:
@@ -56,10 +61,23 @@ def logout_view(request):
     return redirect("registration")
 
 def recipes_view(request):
-    return render(request, "recipes_page.html")
+    recipes: list[Recipe] = list(Recipe.objects.all())
+    context = {
+        "recipes": recipes,
+    }
+    return render(request, "recipes_page.html",context)
 
-def recipe_detail_view(request):
-    return render(request, "recipe_details.html")
+def recipe_detail_view(request,recipe_id):
+    recipe = Recipe.objects.get(id=recipe_id)
+    ingredients: list[IngredientItem] = list(IngredientItem.objects.filter(recipe_id = recipe.id))
+    steps: list[Step] = list(Step.objects.filter(recipe_id = recipe.id))
+    
+    context={
+        'recipe':recipe,
+        'ingredients':ingredients,
+        'steps':steps
+    }
+    return render(request, "recipe_details.html",context)
 
 def categories_view(request):
     return render(request, "categories.html")
