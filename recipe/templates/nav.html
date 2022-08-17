@@ -20,10 +20,11 @@
         <a href="{% url 'login' %}" class="nav-link">Login</a>
         <a href="{% url 'registration' %}" class="nav-link">Register</a>
         {% endif %}
-
+        {% if request.user.is_authenticated %}
         <div class="nav-link contact-link">
           <a href="{%url 'new_recipe' %}" class="btn"> Add new </a>
         </div>
+        {% endif %}
       </div>
     </div>
   </nav>
