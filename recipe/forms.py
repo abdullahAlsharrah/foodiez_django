@@ -20,19 +20,26 @@ class UserLogin(forms.Form):
     username = forms.CharField(required=True)
     password = forms.CharField(required=True, widget=forms.PasswordInput())
 
-class IngredientItemForm(forms.Form):
+class IngredientItemForm(forms.ModelForm):
     class Meta:
         model= IngredientItem
-        fields = ['quantity','ingrediant']
+        fields = ['quantity','ingredient']
 
-class StepForm(forms.Form):
+class StepForm(forms.ModelForm):
     class Meta:
         model= Step
         fields = ['name','description']
 
-class RecipeForm(forms.Form):
+class RecipeForm(forms.ModelForm):
     ingredients = IngredientItemForm()
     steps =StepForm()
     class Meta:
         model= Recipe
-        fields = ['name','description','ingredients','image','prep_time','cook_time','serving','steps']
+        fields = ['name','description','image','prep_time','cook_time','serving']
+
+    # def get_ingredients(self, obj):
+    #     return obj.get_ingredients()
+
+    # def get_steps(self, obj):
+    #     trips = Trip.objects.all()
+    #     return t(obj.my_favorite_list(trips))
