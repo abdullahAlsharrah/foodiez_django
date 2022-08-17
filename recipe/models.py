@@ -7,6 +7,7 @@ class Profile(models.Model):
         User, on_delete=models.CASCADE, primary_key=True)
     image = models.ImageField(upload_to="profile/",default="")
     bio = models.TextField(default="To change your bio, edit your profile!")
+# Currently this model isnt being used, a good place to use signals
 
 class Category(models.Model):
     name = models.CharField(max_length=10,  blank=False)
@@ -35,6 +36,11 @@ class IngredientItem(models.Model):
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE, null=True,related_name="items")  
     type = models.CharField(max_length=10, choices=types, default="cup")
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, null=True,related_name="ingredientsItems")  
+# This is how i would approach this as well! Great job!
+# If you're looking to take this further, you could use a python package for unit validations and conversions
+# Check out pint if you're looking to develop this further
+# https://pypi.org/project/Pint/
+# https://pint.readthedocs.io/en/stable/
 
 class Step(models.Model):
     name =models.CharField(max_length=250,  blank=False)  

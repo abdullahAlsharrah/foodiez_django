@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth import login, authenticate,logout
-from django.template import context
+from django.template import context # remove unused import
 from recipe.forms import UserLogin, UserRegister
 from recipe.models import IngredientItem, Recipe, Step
 
@@ -71,6 +71,9 @@ def recipe_detail_view(request,recipe_id):
     recipe = Recipe.objects.get(id=recipe_id)
     ingredients: list[IngredientItem] = list(IngredientItem.objects.filter(recipe_id = recipe.id))
     steps: list[Step] = list(Step.objects.filter(recipe_id = recipe.id))
+
+    # the ingredients list query above and the steps query can be performed in a cleaner
+    # way, using the recipes relations property, via the related names (relations that are defined in the models.py in connection with the Recipe instance)
     
     context={
         'recipe':recipe,

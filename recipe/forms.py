@@ -8,7 +8,7 @@ User = get_user_model()
 class UserRegister(forms.ModelForm):
     class Meta:
         model = User
-        fields = ["username", "first_name", "last_name", "email", "password"]
+        fields = ["username", "first_name", "last_name", "email", "password"] # why the need for all these fields?
 
         widgets = {
             "password": forms.PasswordInput(),

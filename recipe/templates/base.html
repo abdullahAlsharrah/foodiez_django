@@ -27,8 +27,7 @@
     <link rel="stylesheet" href="{% static 'main.css' %}" />
     <title>{% block title %} {% endblock title %}</title>
   </head>
-  <body >
-   
+  <body>
     {% block content %}
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
@@ -46,6 +45,8 @@
       crossorigin="anonymous"
     ></script>
     {% endblock content %}
-    
   </body>
 </html>
+{% comment %} To reduce the amount of times you are importing the navbar and the
+footer using the include, you can use the include tag directly here. {%
+endcomment %}
