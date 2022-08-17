@@ -1,8 +1,10 @@
+import re
 from django.shortcuts import redirect, render
 from django.contrib.auth import login, authenticate,logout
-from django.template import context
-from recipe.forms import UserLogin, UserRegister
+from django.contrib.auth.decorators import login_required
+from recipe.forms import RecipeForm, UserLogin, UserRegister
 from recipe.models import IngredientItem, Recipe, Step
+
 
 # Create your views here.
 def handler404(request,exception):
@@ -81,3 +83,17 @@ def recipe_detail_view(request,recipe_id):
 
 def categories_view(request):
     return render(request, "categories.html")
+
+# Create Recipe
+# @login_required
+def create_reciepe(request):
+    form = RecipeForm()
+    if request.method == "POST":
+        form = RecipeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("recipes")
+    context = {
+        "form": form,
+    }
+    return render(request,'creare_recipe.html',context)

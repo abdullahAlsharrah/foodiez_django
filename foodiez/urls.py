@@ -18,6 +18,9 @@ urlpatterns = [
     path('recipes/', recipe_views.recipes_view, name="recipes"),
     path('recipe/detail/<int:recipe_id>/', recipe_views.recipe_detail_view, name="recipe_detail"),
     path('categories', recipe_views.categories_view, name="catgeories"),
+
+    #Create
+    path('new_recipe/', recipe_views.create_reciepe, name="new_recipe"),
 ]
 handler404 = 'recipe.views.handler404'
 
