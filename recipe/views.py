@@ -36,6 +36,8 @@ def registration_view(request):
             user.set_password(user.password)
             user.save()
 
+            Profile.objects.create(user=user)
+
             login(request,user)
 
             return redirect("home")
