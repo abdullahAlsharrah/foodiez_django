@@ -11,6 +11,7 @@
         />
         <article class="recipe-info">
           <h2>{{recipe.name}}</h2>
+          <a href={%url 'chef_recipes' recipe.profile.user.id%}>by: {{recipe.profile}}</a>
           <p>
             {{recipe.description}}
           </p>

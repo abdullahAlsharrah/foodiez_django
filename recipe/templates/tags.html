@@ -1,0 +1,29 @@
+{% extends 'base.html'%} {% load static %} {%block title%} Reciepes {%endblock title%} 
+
+{% block content %}
+    <!-- tag container -->
+    <div class="tags-container">
+      <div class="tags-list">
+        {%for category, ingredients in categories.items%}
+        <a href={%url 'ingredients' category.id %}><h5 class='m-0'>{{category.name}}</h5></a>
+        {%for tag in ingredients%}
+       <ul style='list-style-type:circle'>
+           {%if chef %}
+           {%if ingredient.name == tag.name %}
+           <li class='ms-3'> <a href={%url 'chef_filterd_recipes' chef.user.id tag.id %} style='color:black; font-weight: bold;'>{{tag}}</a></li>
+            {%else%}
+           <li class='ms-3'> <a href={%url 'chef_filterd_recipes' chef.user.id tag.id %}>{{tag}}</a></li>
+           {%endif%}
+           {%else%}
+           {%if ingredient.name == tag.name %}
+           <li class='ms-3'> <a href={%url 'filtered_recipes' tag.id %} style='color:black; font-weight: bold;'>{{tag}}</a></li>
+            {%else%}
+           <li class='ms-3'> <a href={%url 'filtered_recipes' tag.id %}>{{tag}}</a></li>
+           {%endif%}
+           {%endif%}
+       </ul>
+        {%endfor%}
+        {%endfor%}
+      </div>
+    </div>
+{%endblock content%}

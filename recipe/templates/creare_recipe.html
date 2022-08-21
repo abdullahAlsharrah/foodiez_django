@@ -1,13 +1,142 @@
 {% extends 'base.html' %}{% load crispy_forms_tags %} {% block title %}
 New Reciepe {% endblock title %} {%load static %} {%block content %}
+<style>
+    .ingredient-form{
+        border-bottom:1px solid #c4c4c4;
+        margin-bottom:15px
+    }
+    .step-form{
+        border-bottom:1px solid #c4c4c4;
+        margin-bottom:15px
+    }
+    .hidden {
+        display: none
+    }
+    .outline-btn {
+        color: #645cff;
+        background: white;
+        border-radius: 5px;
+        border:1px solid #645cff;
+      }
+      .outline-btn:hover{
+        color: white;
+      }
+      .form-check{
+          display:none
+      }
+    
+</style>
 {% include 'nav.html' %}
+<main class="page">
+<div style="width: 100%;" class="p-5">
+    <form action="{% url 'new_recipe' %}" method="POST" enctype="multipart/form-data" style="width:100%">
+        <div class="d-flex" style="width:100%">
+            <div >
+                <h4>Recipe</h4>
+                
+                <div class='card p-3'>{% csrf_token %} {{ form|crispy }}</div></div>
+            <div style="width:100%" class="ms-5">
+                <h4>Ingredients</h4>
+                {{ingredient_form.management_form}}
 
-<div style="width: 500px; height:85vh" class="p-5">
-  <form action="{% url 'new_recipe' %}" method="POST">
-    {% csrf_token %} {{ form|crispy }}
-    <button type="submit" class="btn btn-primary mt-2">Submit</button>
-</form>
+                <div id='ingredient-form-list'>
+                    {% for form in ingredient_form %}
+                        <div class='ingredient-form'>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div id='empty-form' class='hidden'><div id='ingredient_counter' class="hidden ">
+                     </div>{{ingredient_form.empty_form|crispy}}</div>
+                <button id="add-more-ingredient" type="button" class="btn outline-btn mt-2 ">Add ingredient</button>
+            </div>
+            <div style="width:100%" class="ms-5">
+                <h4>Steps</h4>
+                {{step_form.management_form}}
+                <div id='step-form-list'>
+                    {% for form in step_form %}
+                        <div class='step-form'>
+
+                        </div>
+
+                    {% endfor %}
+                </div>
+                <div id='empty-step-form' class='hidden'> 
+                    {% comment %} <button id="delete-step" type="button" class="btn outline-btn mt-2 detele ">X</button> {% endcomment %}
+                     {{step_form.empty_form|crispy}}
+                </div>
+                <button id="add-more-step" type="button" class="btn outline-btn mt-2 ">Add step</button>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary mt-2 " style="width:90px">Submit</button>
+    </form>
 </div>
+</main>
+
+<script>
+    const addMoreIngBtn = document.getElementById('add-more-ingredient')
+    const addMoreStepBtn = document.getElementById('add-more-step')
+    
+    const totalNewForms = document.getElementById('id_ingredientsItems-TOTAL_FORMS')
+    const totalNewStepsForms = document.getElementById('id_steps-TOTAL_FORMS')
+    {% comment %} let ingredient_counter = 1 {% endcomment %}
+
+    addMoreIngBtn.addEventListener('click',add_new_ingredient)
+    addMoreStepBtn.addEventListener('click',add_new_step)
+    function add_new_ingredient(event) {
+        
+        const currentIngredientForms = document.getElementsByClassName('ingredient-form')
+        const currentFormCount = currentIngredientForms.length // + 1
+        const formCopyTarget = document.getElementById('ingredient-form-list')
+        const copyEmptyFormEl = document.getElementById('empty-form').cloneNode(true)
+        copyEmptyFormEl.setAttribute('class', 'ingredient-form card p-3' )
+        copyEmptyFormEl.setAttribute('id', `form-${currentFormCount}`)
+        
+        const counterDiv = document.getElementById('ingredient_counter').cloneNode(true)
+        counterDiv.setAttribute('class', 'card-header' )
+        counterDiv.innerHTML= `<h5 class="card-title"> Ingredient ${currentFormCount + 1}</h5>`
+        
+        copyEmptyFormEl.prepend(counterDiv)
+
+        const regex = new RegExp('__prefix__', 'g')
+        copyEmptyFormEl.innerHTML = copyEmptyFormEl.innerHTML.replace(regex, currentFormCount)
+        copyEmptyFormEl.innerHTML = copyEmptyFormEl.innerHTML.replace(regex, currentFormCount)
+        totalNewForms.setAttribute('value', currentFormCount + 1)
+        // now add new empty form element to our html form
+        formCopyTarget.append(copyEmptyFormEl)
+    }
+    function add_new_step(event) {
+        const currentStepForms = document.getElementsByClassName('step-form')
+        const currentFormCount = currentStepForms.length // + 1
+        const formCopyTarget = document.getElementById('step-form-list')
+        const copyEmptyFormEl = document.getElementById('empty-step-form').cloneNode(true)
+        copyEmptyFormEl.setAttribute('class', 'step-form card p-3')
+        copyEmptyFormEl.setAttribute('id', `form-${currentFormCount}`)
+        
+        
+
+        const counterDiv = document.getElementById('ingredient_counter').cloneNode(true)
+        counterDiv.setAttribute('class', 'card-header' )
+        counterDiv.innerHTML= `<h5 class="card-title"> Step ${currentFormCount + 1 }</h5>`
+        copyEmptyFormEl.prepend(counterDiv)
+
+        const regex = new RegExp('__prefix__', 'g')
+        copyEmptyFormEl.innerHTML = copyEmptyFormEl.innerHTML.replace(regex, currentFormCount)
+        totalNewStepsForms.setAttribute('value', currentFormCount + 1)
+        // now add new empty form element to our html form
+        formCopyTarget.append(copyEmptyFormEl)
+    }
+
+    function delete_step(event){
+        const id = event.target.parentElement.id
+        const list = document.getElementById('step-form-list')
+        list.innerHTML = list.filter(i=>i.id !=id)        
+        console.log(id,"d")
+    }
+    
+
+
+</script>
 {% include 'fotter.html' %}
 
 {% endblock content %}
+

@@ -13,11 +13,24 @@ urlpatterns = [
     path('login/', recipe_views.user_login, name="login"),
     path('logout/', recipe_views.logout_view, name="logout"),
 
-    #Home
+    # Home
     path('', recipe_views.home, name="home"),
+
+    # Recipes
     path('recipes/', recipe_views.recipes_view, name="recipes"),
+    path('recipes/<int:ingredient_id>', recipe_views.filtered_recipes_view, name="filtered_recipes"),
+    path('recipes/chef/<int:chef_id>', recipe_views.chef_recipes_view, name="chef_recipes"),
+    path('recipes/chef/<int:chef_id>/<int:ingredient_id>', recipe_views.chef_filtered_recipes_view, name="chef_filterd_recipes"),
     path('recipe/detail/<int:recipe_id>/', recipe_views.recipe_detail_view, name="recipe_detail"),
-    path('categories', recipe_views.categories_view, name="catgeories"),
+
+    # Ingredients
+    path('categories', recipe_views.categories_view, name="categories"),
+    path('ingredients/<int:category_id>', recipe_views.ingredients_view, name="ingredients"),
+
+    # Chefs
+    path('chefs', recipe_views.chefs_view, name="chefs"),
+    path('my_profile', recipe_views.my_recipes_view, name="my_profile"),
+
 
     #Create
     path('new_recipe/', recipe_views.create_reciepe, name="new_recipe"),

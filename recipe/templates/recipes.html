@@ -5,31 +5,31 @@
     <!-- tag container -->
     {%if recipes %}
     <div class="tags-container">
-      <h4>recipes</h4>
-      <div class="tags-list">
-        <a href="tag-template.html">Beef (1)</a>
-        <a href="tag-template.html">Breakfast (2)</a>
-        <a href="tag-template.html">Carrots (3)</a>
-        <a href="tag-template.html">Food (4)</a>
-      </div>
+      <h4>Tags</h4>
+      {% include 'tags.html' %}
     </div>
     <!-- end of tag container -->
     <!-- recipes list -->
-    {% for recipe in recipes %}
     <div class="recipes-list">
       <!-- single recipe -->
+      {% for recipe in recipes %}
       <a href="{%url 'recipe_detail' recipe.id %}" class="recipe">
         <img
           src={{recipe.image.url}}
           class="img recipe-img"
           alt=""
         />
-        <h5>{{recipe.name}}</h5>
-        <p>Prep : {{recipe.prep_time}} | Cook : {{recipe.cook_time}}</p>
+        <div class="d-flex justify-content-between">
+          <div>
+            <h5>{{recipe.name}}</h5>
+            <p>Prep : {{recipe.prep_time}} | Cook : {{recipe.cook_time}}</p>
+          </div>
+          <p>by: {{recipe.profile}}</p>
+        </div>
       </a>
       <!-- end of single recipe -->
+      {% endfor %}
     </div>
-    {% endfor %}
     {%else%}
     <p>Their is no Recipes</p>
     {%endif%}

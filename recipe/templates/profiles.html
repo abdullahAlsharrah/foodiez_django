@@ -1,0 +1,44 @@
+
+
+
+{% extends 'base.html'%} {% load static %} {%block title%} Reciepes {%endblock title%} 
+
+{% block content %}
+{% include 'nav.html' %}
+<main class="page">
+
+    <section class="recipes-container" style='grid-template-columns:unset'>
+        <!-- tag container -->
+        {%if profiles %}
+        
+        <!-- recipes list -->
+        <div class="recipes-list">
+          <!-- single recipe -->
+          {% for profile in profiles %}
+          <a href="{%url 'chef_recipes' profile.user.id %}" class="recipe">
+            <img
+              src={{profile.image.url}}
+              class="img recipe-img"
+              alt=""
+            />
+            <div class="d-flex justify-content-between">
+              <div>
+                <h5>{{profile.user.username}}</h5>
+                {% comment %} <p>Prep : {{profile.prep_time}} | Cook : {{profile.cook_time}}</p> {% endcomment %}
+              </div>
+              <p>{{profile.profile}}</p>
+            </div>
+          </a>
+          <!-- end of single profile -->
+          {% endfor %}
+        </div>
+        {%else%}
+        <p>Their is no Profiles</p>
+        {%endif%}
+        <!-- end of recipes list -->
+      </section>
+</main>
+
+{% include 'fotter.html' %}
+
+{%endblock content%}

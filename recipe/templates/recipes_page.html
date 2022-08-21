@@ -2,8 +2,35 @@
 
 {% block content %}
 {% include 'nav.html' %}
-<main class="page">
+<style>
+  .profile-img{border-radius: 100%;
+  width: 60px;
+  height: 60px;}
 
+  .profile{
+    border-bottom: 1px solid #000;
+  }
+  
+</style>
+
+<main class="page">
+{%if chef%}
+<div class='d-flex align-items-center align-content-center profile mb-2 p-2'>
+  <img src={{chef.image.url}} class="profile-img me-1"/>
+  <h3 class='m-0'>{{chef}}</h3>
+</div>
+{%endif%}
+{%if ingredient%}
+{%if chef%}
+<div class='d-flex align-items-center align-content-center mb-2 p-2'>
+  <h3 class='m-0'>{{ingredient.name}}</h3>
+</div>
+{%else%}
+<div class='d-flex align-items-center align-content-center profile mb-2 p-2'>
+  <h3 class='m-0'>{{ingredient.name}}</h3>
+</div>
+{%endif%}
+{%endif%}
   {% include 'recipes.html' %}
 </main>
 
