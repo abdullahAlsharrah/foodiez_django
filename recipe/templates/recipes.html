@@ -12,7 +12,7 @@
     <!-- recipes list -->
     <div class="recipes-list">
       <!-- single recipe -->
-      {% for recipe in recipes %}
+      {% for recipe in recipes|dictsortreversed:"id" %}
       <a href="{%url 'recipe_detail' recipe.id %}" class="recipe">
         <img
           src={{recipe.image.url}}
