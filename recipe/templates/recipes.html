@@ -3,7 +3,6 @@
 {% block content %}
 <section class="recipes-container">
     <!-- tag container -->
-    {%if recipes %}
     <div class="tags-container">
       <h4>Tags</h4>
       {% include 'tags.html' %}
@@ -12,6 +11,7 @@
     <!-- recipes list -->
     <div class="recipes-list">
       <!-- single recipe -->
+      {%if recipes %}
       {% for recipe in recipes|dictsortreversed:"id" %}
       <a href="{%url 'recipe_detail' recipe.id %}" class="recipe">
         <img
@@ -22,7 +22,7 @@
         <div class="d-flex justify-content-between">
           <div>
             <h5>{{recipe.name}}</h5>
-            <p>Prep : {{recipe.prep_time}} | Cook : {{recipe.cook_time}}</p>
+            <p>Prep : {{recipe.prep_time}} min | Cook : {{recipe.cook_time}} min</p>
           </div>
           <p>by: {{recipe.profile}}</p>
         </div>

@@ -122,12 +122,14 @@ def my_recipes_view(request):
 
 def chef_filtered_recipes_view(request,chef_id,ingredient_id):
     recipes=[]
-    ingredientsItem = IngredientItem.objects.filter(ingredient_id=ingredient_id )
+    ingredientsItem = IngredientItem.objects.filter(ingredient_id=ingredient_id)
     ingredient = Ingredient.objects.get(id=ingredient_id)
 
     for i in ingredientsItem:
-        if i.recipe and i.recipe.profile.user.id == chef_id:
-                recipes.append(i.recipe)
+        if i.recipe:
+            if i.recipe.profile:
+                if i.recipe and i.recipe.profile.user.id == chef_id:
+                        recipes.append(i.recipe)
     profile = Profile.objects.get(user_id= chef_id)
     categories = {category: Ingredient.objects.filter(category = category) for category in Category.objects.all()}
 

@@ -6,23 +6,23 @@
       <div class="tags-list">
         {%for category, ingredients in categories.items%}
         <a href={%url 'ingredients' category.id %}><h5 class='m-0'>{{category.name}}</h5></a>
+        <ul style='list-style-type:circle'>
         {%for tag in ingredients%}
-       <ul style='list-style-type:circle'>
            {%if chef %}
            {%if ingredient.name == tag.name %}
-           <li class='ms-3'> <a href={%url 'chef_filterd_recipes' chef.user.id tag.id %} style='color:black; font-weight: bold;'>{{tag}}</a></li>
+           <li class='ms-3'> <a href={%url 'chef_filterd_recipes' chef.user.id tag.id %} style='color:black; font-weight: bold;'    class='m-0'>{{tag}}</a></li>
             {%else%}
-           <li class='ms-3'> <a href={%url 'chef_filterd_recipes' chef.user.id tag.id %}>{{tag}}</a></li>
+           <li class='ms-3'> <a href={%url 'chef_filterd_recipes' chef.user.id tag.id %}   class='m-0'>{{tag}}</a></li>
            {%endif%}
            {%else%}
            {%if ingredient.name == tag.name %}
-           <li class='ms-3'> <a href={%url 'filtered_recipes' tag.id %} style='color:black; font-weight: bold;'>{{tag}}</a></li>
+           <li class='ms-3'> <a href={%url 'filtered_recipes' tag.id %} style='color:black; font-weight: bold;'  class='m-0'>{{tag}}</a></li>
             {%else%}
-           <li class='ms-3'> <a href={%url 'filtered_recipes' tag.id %}>{{tag}}</a></li>
+           <li class='ms-3'> <a href={%url 'filtered_recipes' tag.id %} class='m-0'>{{tag}}</a></li>
            {%endif%}
            {%endif%}
+           {%endfor%}
        </ul>
-        {%endfor%}
         {%endfor%}
       </div>
     </div>
